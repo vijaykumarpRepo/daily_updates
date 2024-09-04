@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>addInfo</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script th:inline="javascript">
+        window.onload = function() {
+
+            var msg = "${message}";
+            console.log(msg);
+            if (msg == "Save Failure") {
+                Command: toastr["error"]("Something went wrong with the save.")
+            }
+
+            toastr.options = {
+                  "closeButton": true,
+                  "debug": false,
+                  "newestOnTop": false,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+        }
+    </script>
+
+</head>
+<body>
+
+<div class = "container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class = "text-center"> Create New Info </h1>
+            <div class = "card-body">
+                <form th:action="@{/info}" th:object = "${info}" method="POST">
+                    <div class ="form-group">
+                        <label> Info Name </label>
+                        <input
+                                type = "text"
+                                name = "Info_name"
+                                th:field = "*{info_name}"
+                                class = "form-control"
+                                placeholder="Enter Info Name"
+                        />
+                    </div>
+
+                    <div class ="form-group">
+                        <label> Desc </label>
+                        <input
+                                type = "text"
+                                name = "data"
+                                th:field = "*{data}"
+                                class = "form-control"
+                                placeholder="Desc"
+                        />
+                    </div>
+
+                    <div class ="form-group">
+                        <label> Status </label>
+                        <input
+                                type = "text"
+                                name = "status"
+                                th:field = "*{status}"
+                                class = "form-control"
+                                placeholder="Enter status"
+                        />
+                    </div>
+
+                    <div class = "box-footer">
+                        <button type="submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

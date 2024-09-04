@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <meta charset="UTF-8">
+    <title>ViewInfo</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script th:inline="javascript">
+        window.onload = function() {
+
+            var msg = "${message}";
+
+            if (msg == "Save Success") {
+                Command: toastr["success"]("info added successfully!!")
+            } else if (msg == "Delete Success") {
+                Command: toastr["success"]("info deleted successfully!!")
+            } else if (msg == "Delete Failure") {
+                Command: toastr["error"]("Some error occurred, couldn't delete info")
+            } else if (msg == "Edit Success") {
+                Command: toastr["success"]("info updated successfully!!")
+            }
+
+            toastr.options = {
+                  "closeButton": true,
+                  "debug": false,
+                  "newestOnTop": false,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+        }
+    </script>
+
+
+
+    <style>
+        a{
+            color: white;
+        }
+        a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1 class="p-3"> Info List</h1>
+
+    <form>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>info_name</th>
+                <th>Desc</th>
+                <th>Status</th>
+                <th>Mark Completed</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+
+
+                <tr th:each="info : ${list}">
+                    <td th:text="${info.id}"></td>
+                    <td th:text="${info.info_name}"></td>
+                    <td th:text="${info.data}"></td>
+                    <td th:text="${info.status}"></td>
+
+                    <td><button type="button" class="btn btn-success">
+                        <a href="/updateinfoStatus/${info.id}">Mark Complete</a>
+                    </button></td>
+                    <td><button type="button" class="btn btn-primary">
+                        <a th:href="@{/updateinfo/edit/{id}(id=${info.id})}">Edit</a>
+                    </button></td>
+                    <td><button type="button" class="btn btn-danger">
+                        <a href="/deleteinfo/${info.id}">Delete</a>
+                    </button></td>
+                </tr>
+
+
+
+
+        </table>
+
+    </form>
+
+    <button type="button" class="btn btn-primary btn-block">
+        <a href="/info/create">Add New Info</a>
+    </button>
+
+</div>
+
+
+</body>
+</html>
